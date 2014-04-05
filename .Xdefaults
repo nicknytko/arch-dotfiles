@@ -1,0 +1,50 @@
+! black
+URxvt*color15  : #66666a
+URxvt*color7  : #30303a
+
+! red
+URxvt*color9: #ff6699
+URxvt*color1: #a3506c
+
+! yellow/orange
+URxvt*color11: #ffff00
+URxvt*color3: #ff9933
+
+! purple
+URxvt*color13: #cc3399
+URxvt*color5: #cc0099
+
+! blue
+URxvt*color12: #3399ff
+URxvt*color4: #0066ff
+
+! green
+URxvt*color10 : #99FF33
+URxvt*color2  : #6BB224
+
+! cyan
+URxvt*color14 : #33ccff
+URxvt*color6  : #0099ff
+
+! white
+URxvt*color0 : #b1b8c3
+URxvt*color8  : #cdcdcd
+
+URxvt*scrollBar: false
+#URxvt*background: #20202f
+URxvt*foreground: #d2d2d2
+URxvt*cursorUnderline: false
+URxvt*cursorColor: #FFFFFF
+URxvt*colorUL: #9695b5
+URxvt*internalBorder:0
+URxvt*borderColor: rgba:0000/0000/0200/c800
+
+URxvt*font: xft:lemon:size=10
+URxvt*boldFont: xft:lemon:size=10
+URxvt*keysym.Home: \033[1~
+URxvt*keysym.End: \033[4~
+
+URxvt*depth: 32
+URxvt*background: rgba:0000/0000/0200/c800
+#URxvt*background: #202020
+URxvt*geometry: 151x48
