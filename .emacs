@@ -6,6 +6,10 @@
   (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")))
 (package-initialize) ;; You might already have this line
 
+(tool-bar-mode -1)
+(set-fringe-mode 0)
+(scroll-bar-mode -1)
+
 (setq c-default-style "bsd"
       c-basic-offset 4)
 
