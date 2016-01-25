@@ -6,24 +6,57 @@
   (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")))
 (package-initialize) ;; You might already have this line
 
-(when (display-graphic-p)
-  (tool-bar-mode -1)
-  (set-fringe-mode 0)
-  (scroll-bar-mode -1))
+;; Load monokai soda theme
+
+(add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
+(load-theme 'monokai-dark-soda t)
+
+;; Powerline mode bar
+
+(require 'powerline)
+(powerline-default-theme)
+
+;; Set fringe mode to zero (not sure if this does anything)
+
+(set-fringe-mode 0)
+
+;; Reverse colors for the border to have nicer line
+
+(set-face-inverse-video-p 'vertical-border nil)
+(set-face-background 'vertical-border (face-background 'default))
+
+;; Set symbol for the border
+
+(set-display-table-slot standard-display-table
+			'vertical-border
+			(make-glyph-code ?\u2502))
+
+;; Set tool bar modes for GUI emacs
+
+(tool-bar-mode -1)
+(scroll-bar-mode -1)
+(menu-bar-mode -1)
+
+;; Tab mode
 
 (setq c-default-style "bsd"
       c-basic-offset 4)
+
+;; Line numbering
+
+(setq mode-line-format nil)
+
+(global-linum-mode t)
+(setq linum-format "%4d\u2502")
+
+;; Disable annoying backup files
 
 (setq backup-directory-alist
       `((".*" . ,temporary-file-directory)))
 (setq auto-save-file-name-transforms
       `((".*" ,temporary-file-directory t)))
 
-(add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
-(load-theme 'monokai-dark-soda t)
-
-(global-linum-mode t)
-(setq linum-format "%4d\u2502")
+;; Random emacs generated junk
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
