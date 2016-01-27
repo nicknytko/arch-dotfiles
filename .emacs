@@ -40,6 +40,10 @@
 (setq c-default-style "bsd"
       c-basic-offset 4)
 
+(setq-default indent-tabs-mode nil)
+
+(setq tab-stop-list (number-sequence 4 60 4))
+
 ;; Line numbering
 
 (setq mode-line-format nil)
