@@ -16,10 +16,6 @@
 (require 'powerline)
 (powerline-default-theme)
 
-;; Set fringe mode to zero (not sure if this does anything)
-
-(set-fringe-mode 0)
-
 ;; Reverse colors for the border to have nicer line
 
 (set-face-inverse-video-p 'vertical-border nil)
@@ -31,11 +27,13 @@
 			'vertical-border
 			(make-glyph-code ?\u2502))
 
-;; Set tool bar modes for GUI emacs
+;; Set stuff for GUI emacs
 
-(tool-bar-mode -1)
-(scroll-bar-mode -1)
-(menu-bar-mode -1)
+(when window-system
+    (set-fringe-mode 0)
+    (tool-bar-mode -1)
+    (scroll-bar-mode -1)
+    (menu-bar-mode -1))
 
 ;; Tab mode
 
