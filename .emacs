@@ -58,6 +58,21 @@
 (setq auto-save-file-name-transforms
       `((".*" ,temporary-file-directory t)))
 
+;; Startup fortune
+
+(setq debug-on-error t)
+
+(defun cowsay-startup( )
+  (defconst fortune "/usr/local/bin/fortune")
+  (defconst cowsay "/usr/local/bin/cowsay")
+  (set-buffer (generate-new-buffer "cowsay-startup"))
+  (insert "Welcome to GNU/Emacs\n\n")
+  (call-process-shell-command (concat fortune " | " cowsay) nil t nil )
+  (setq buffer-read-only t)
+  (current-buffer))
+
+(setq initial-buffer-choice 'cowsay-startup )
+
 ;; Random emacs generated junk
 
 (custom-set-variables
