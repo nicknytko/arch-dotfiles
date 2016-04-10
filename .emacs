@@ -60,18 +60,24 @@
 
 ;; Startup fortune
 
-(setq debug-on-error t)
-
 (defun cowsay-startup( )
   (defconst fortune "/usr/local/bin/fortune")
   (defconst cowsay "/usr/local/bin/cowsay")
-  (set-buffer (generate-new-buffer "cowsay-startup"))
-  (insert "Welcome to GNU/Emacs\n\n")
-  (call-process-shell-command (concat fortune " | " cowsay) nil t nil )
-  (setq buffer-read-only t)
-  (current-buffer))
+  (with-current-buffer (generate-new-buffer "cowsay-startup")
+    (insert "Welcome to GNU/Emacs\n\n")
+    (call-process-shell-command (concat fortune " | " cowsay) nil t nil )
+    (setq buffer-read-only t)
+    (current-buffer)))
 
-(setq initial-buffer-choice 'cowsay-startup )
+(defun cowsay-checkbuffer( )
+  (if (string= (buffer-name) "*scratch*")
+      (switch-to-buffer (funcall 'cowsay-startup)) ))
+
+;; Because initial-buffer-choice always changes the initial buffer no
+;; matter what, we have to change the buffer ourselves after startup
+
+(setq inhibit-startup-screen t)
+(add-hook 'emacs-startup-hook 'cowsay-checkbuffer)
 
 ;; Random emacs generated junk
 
