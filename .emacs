@@ -32,8 +32,9 @@
 (when window-system
     (set-fringe-mode 0)
     (tool-bar-mode -1)
-    (scroll-bar-mode -1)
-    (menu-bar-mode -1))
+    (scroll-bar-mode -1))
+
+(menu-bar-mode -1)
 
 ;; Tab mode
 
@@ -61,12 +62,16 @@
 ;; Startup fortune
 
 (defun cowsay-startup( )
-  (defconst fortune "/usr/local/bin/fortune")
-  (defconst cowsay "/usr/local/bin/cowsay")
+  (defconst fortune "/usr/local/bin/fortune -a computers")
+  (defconst scrwidth ( - (frame-width (selected-frame)) 5 ))
+  (defconst cowsay (concat "/usr/local/bin/cowsay -W " (number-to-string(symbol-value `scrwidth))))
   (with-current-buffer (generate-new-buffer "cowsay-startup")
     (insert "Welcome to GNU/Emacs\n\n")
+    (insert "C-x C-c to quit\nC-x C-s to save\nC-x C-f to open file or directory\nC-x b to switch buffer\n\n")
     (call-process-shell-command (concat fortune " | " cowsay) nil t nil )
     (setq buffer-read-only t)
+    (setq cursor-type nil)
+    (beginning-of-buffer)
     (current-buffer)))
 
 (defun cowsay-checkbuffer( )
