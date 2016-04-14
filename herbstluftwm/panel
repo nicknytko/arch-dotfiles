@@ -13,12 +13,10 @@ y=${geometry[1]}
 panel_width=${geometry[2]}
 panel_height=20
 font="-*-fixed-medium-*-*-*-10-*-*-*-*-*-*-*"
-#font="xft:lemon:size=10"
 displayfont="lemon:size=8"
-bgcolor='#232323'
+bgcolor='#3A3587'
 selfg='#FFFFFF'
-#selbg='#6BB224'
-selbg="#9FBC00"
+selbg='#8A347C'
 
 playing() {
 mpc current

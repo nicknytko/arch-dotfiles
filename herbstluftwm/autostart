@@ -22,8 +22,11 @@ hc keybind $Mod-Shift-q quit
 hc keybind $Mod-Shift-r reload
 hc keybind $Mod-Shift-c close
 hc keybind $Mod-Return spawn urxvt
+hc keybind $Mod-Shift-f fullscreen toggle
 hc keybind Mod4-t spawn urxvt
-hc keybind Mod4-w spawn /home/nick/Bin/firefox/firefox
+hc keybind Mod4-w spawn firefox
+hc keybind Mod4-d spawn /home/nick/Bin/launch-menu
+hc keybind Mod4-e spawn urxvt -e emacs -nw
 
 # basic movement
 # focusing clients
@@ -86,7 +89,6 @@ hc keybind $Mod-comma  use_index -1 --skip-visible
 hc keybind $Mod-r remove
 hc keybind $Mod-space cycle_layout 1
 hc keybind $Mod-s floating toggle
-hc keybind $Mod-f fullscreen toggle
 hc keybind $Mod-p pseudotile toggle
 
 # mouse
@@ -152,11 +154,7 @@ for monitor in $(herbstclient list_monitors | cut -d: -f1) ; do
     "$panel" $monitor &
 done
 
-#hc load "`cat /home/nick/.config/herbstluftwm/default_layout`"
-
-alias emacs='emacs -nw'
-
 nitrogen --restore
-compton -c -b
+compton &
 mpd &
-./panel &
+~/.config/herbstluftwm/panel &

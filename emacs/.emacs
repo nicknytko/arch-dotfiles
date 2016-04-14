@@ -1,6 +1,6 @@
 (require 'package) ;; You might already have this line
 (add-to-list 'package-archives
-	     '("melpa" . "https://melpa.org/packages/"))
+             '("melpa" . "https://melpa.org/packages/"))
 (when (< emacs-major-version 24)
   ;; For important compatibility libraries like cl-lib
   (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")))
@@ -10,6 +10,12 @@
 
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
 (load-theme 'monokai-dark-soda t)
+
+(defun terminal-disable-bg( )
+  (unless (display-graphic-p (selected-frame))
+    (set-face-background 'default "unspecified-bg" (selected-frame))))
+
+(add-hook 'window-setup-hook 'terminal-disable-bg)
 
 ;; Powerline mode bar
 
@@ -24,8 +30,8 @@
 ;; Set symbol for the border
 
 (set-display-table-slot standard-display-table
-			'vertical-border
-			(make-glyph-code ?\u2502))
+                        'vertical-border
+                        (make-glyph-code ?\u2502))
 
 ;; Set stuff for GUI emacs
 
@@ -62,9 +68,19 @@
 ;; Startup fortune
 
 (defun cowsay-startup( )
-  (defconst fortune "/usr/local/bin/fortune -a computers")
+  
+  (when (eq system-type 'darwin)        ;; When on mac our fortune and cowsay are installed to /usr/bin/local
+    (defconst fortune-path "/usr/bin/local/fortune")
+    (defconst cowsay-path "/usr/bin/local/cowsay"))
+  
+  (unless (eq system-type 'darwin)
+    (defconst fortune-path "/usr/bin/fortune")
+    (defconst cowsay-path "/usr/bin/cowsay"))
+  
+  (defconst fortune (concat fortune-path " -a computers"))
   (defconst scrwidth ( - (frame-width (selected-frame)) 5 ))
-  (defconst cowsay (concat "/usr/local/bin/cowsay -W " (number-to-string(symbol-value `scrwidth))))
+  (defconst cowsay (concat cowsay-path " -W " (number-to-string(symbol-value `scrwidth))))
+  
   (with-current-buffer (generate-new-buffer "cowsay-startup")
     (insert "Welcome to GNU/Emacs\n\n")
     (insert "C-x C-c to quit\nC-x C-s to save\nC-x C-f to open file or directory\nC-x b to switch buffer\n\n")
@@ -74,12 +90,12 @@
     (beginning-of-buffer)
     (current-buffer)))
 
+;; Because initial-buffer-choice always changes the initial buffer no
+;; matter what, we have to change the buffer ourselves after startup
+
 (defun cowsay-checkbuffer( )
   (if (string= (buffer-name) "*scratch*")
       (switch-to-buffer (funcall 'cowsay-startup)) ))
-
-;; Because initial-buffer-choice always changes the initial buffer no
-;; matter what, we have to change the buffer ourselves after startup
 
 (setq inhibit-startup-screen t)
 (add-hook 'emacs-startup-hook 'cowsay-checkbuffer)
