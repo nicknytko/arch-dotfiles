@@ -84,6 +84,14 @@
 (setq inhibit-startup-screen t)
 (add-hook 'emacs-startup-hook 'cowsay-checkbuffer)
 
+;; Set font to source code pro
+
+(when window-system
+  (set-face-attribute 'default nil
+                      :family "Source Code Pro for Powerline"
+                      :height 115
+                      :weight 'normal))
+
 ;; Random emacs generated junk
 
 (custom-set-variables
