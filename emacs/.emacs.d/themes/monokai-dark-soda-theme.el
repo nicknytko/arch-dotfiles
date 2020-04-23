@@ -30,7 +30,7 @@
  '(fringe ((t (:background "#EEDC82"))))
  '(minibuffer-prompt ((t (:foreground "#F8F8F2"))))
  '(font-lock-builtin-face ((t (:foreground "#FF80F4"))))
- '(font-lock-comment-face ((t (:foreground "#8C8C8C"))))
+ '(font-lock-comment-face ((t (:foreground "#8C8C8C" :slant italic))))
  '(font-lock-constant-face ((t (:foreground "#FF80F4"))))
  '(font-lock-function-name-face ((t (:foreground "#A6E22E"))))
  '(font-lock-keyword-face ((t (:foreground "#F92672"))))

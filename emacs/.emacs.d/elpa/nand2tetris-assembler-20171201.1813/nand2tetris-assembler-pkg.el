@@ -1,0 +1,2 @@
+;;; -*- no-byte-compile: t -*-
+(define-package "nand2tetris-assembler" "20171201.1813" "Assembler For the Nand2tetris Course" '((nand2tetris "1.1.0")) :commit "33acee34d24b1c6a87db833b7d23449cf858f64f" :keywords '("nand2tetris-assembler" "hdl") :authors '(("Diego Berrocal" . "cestdiego@gmail.com")) :maintainer '("Diego Berrocal" . "cestdiego@gmail.com") :url "http://www.github.com/CestDiego/nand2tetris-assembler.el/")
