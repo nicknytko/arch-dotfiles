@@ -38,7 +38,11 @@
 (when window-system
     (set-fringe-mode 0)
     (tool-bar-mode -1)
-    (scroll-bar-mode -1))
+    (scroll-bar-mode -1)
+    (setenv "PATH" (concat (getenv "PATH") ":/usr/local/bin:/Library/TeX/texbin"))
+    (setq exec-path (append exec-path '("/usr/local/bin")))
+    (setq exec-path (append exec-path '("/Library/TeX/texbin")))
+    )
 
 (menu-bar-mode -1)
 
@@ -53,6 +57,8 @@
 
 ;; Line numbering
 
+(add-to-list `load-path "~/.emacs.d/lisp/")
+(require 'linum-off)
 (setq mode-line-format nil)
 
 (global-linum-mode t)
@@ -70,8 +76,14 @@
 (defun cowsay-startup( )
   
   (when (eq system-type 'darwin)        ;; When on mac our fortune and cowsay are installed to /usr/bin/local
-    (defconst fortune-path "/usr/bin/local/fortune")
-    (defconst cowsay-path "/usr/bin/local/cowsay"))
+    (defconst fortune-path "/usr/local/bin/fortune")
+    (defconst cowsay-path "/usr/local/bin/cowsay")
+    (setq mac-option-key-is-meta t)
+    (setq mac-command-key-is-meta nil)
+    (setq mac-command-modifier nil)
+    (setq mac-option-modifier 'meta)
+    )
+  
   
   (unless (eq system-type 'darwin)
     (defconst fortune-path "/usr/bin/fortune")
@@ -82,8 +94,6 @@
   (defconst cowsay (concat cowsay-path " -W " (number-to-string(symbol-value `scrwidth))))
   
   (with-current-buffer (generate-new-buffer "cowsay-startup")
-    (insert "Welcome to GNU/Emacs\n\n")
-    (insert "C-x C-c to quit\nC-x C-s to save\nC-x C-f to open file or directory\nC-x b to switch buffer\n\n")
     (call-process-shell-command (concat fortune " | " cowsay) nil t nil )
     (setq buffer-read-only t)
     (setq cursor-type nil)
@@ -100,11 +110,13 @@
 (setq inhibit-startup-screen t)
 (add-hook 'emacs-startup-hook 'cowsay-checkbuffer)
 
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+
 ;; Set font to source code pro
 
 (when window-system
   (set-face-attribute 'default nil
-                      :family "Source Code Pro for Powerline"
+                      :family "Roboto Mono for Powerline";
                       :height 115
                       :weight 'normal))
 
@@ -117,10 +129,17 @@
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
    (quote
-    ("3b1973119d3ca55a31abffd64cf6b7d12ce9de125ae07574dd43b90c5f9d5896" default))))
+    ("3b1973119d3ca55a31abffd64cf6b7d12ce9de125ae07574dd43b90c5f9d5896" default)))
+ '(org-export-backends (quote (ascii html icalendar latex md odt)))
+ '(package-selected-packages
+   (quote
+    (cuda-mode yaml-mode format-all markdown-preview-mode markdown-mode magit mustache-mode slime clang-format lua-mode haskell-mode nand2tetris-assembler yasnippet nand2tetris enh-ruby-mode neotree web-mode company-irony irony dash-at-point websocket uncrustify-mode rust-mode powerline latex-preview-pane git fireplace auctex-latexmk))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+
+(setq doc-view-resolution 200)
+(setq markdown-preview-stylesheets (list "github-markdown.css"))
