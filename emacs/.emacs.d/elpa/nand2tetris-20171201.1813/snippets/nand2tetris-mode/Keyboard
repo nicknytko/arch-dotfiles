@@ -1,9 +1,0 @@
-# -*- mode: snippet -*-
-# contributor: Diego Berrocal <cestdiego@gmail.com>
-# name : Keyboard
-# key : Keyboard
-# expand-env: expand-env: ((yas-indent-line 'fixed))
-# group: Logical Gates
-# --
-Keyboard(out=${1:out});
-$0
