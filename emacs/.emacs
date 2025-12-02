@@ -22,17 +22,6 @@
 (require 'powerline)
 (powerline-default-theme)
 
-;; Reverse colors for the border to have nicer line
-
-(set-face-inverse-video-p 'vertical-border nil)
-(set-face-background 'vertical-border (face-background 'default))
-
-;; Set symbol for the border
-
-(set-display-table-slot standard-display-table
-                        'vertical-border
-                        (make-glyph-code ?\u2502))
-
 ;; Set stuff for GUI emacs
 
 (when window-system
@@ -84,8 +73,9 @@
     (setq mac-command-key-is-meta nil)
     (setq mac-command-modifier nil)
     (setq mac-option-modifier 'meta)
+    (set-frame-parameter nil 'ns-appearance 'dark)
+    (set-frame-parameter nil 'ns-transparent-titlebar 't)
     )
-
 
   (unless (eq system-type 'darwin)
     (defconst fortune-path "/usr/bin/fortune")
@@ -134,15 +124,15 @@
 (use-package yasnippet
   :ensure t)
 
-(use-package lsp-mode
-  :ensure t
-  :hook ((c++-mode . lsp-deferred)
-		 (c-mode . lsp-deferred))
-  :commands (lsp lsp-deferred))
-(use-package lsp-ui :commands lsp-ui-mode)
-(use-package lsp-treemacs :commands lsp-treemacs-errors-list)
-(use-package lsp-ivy :commands lsp-ivy-workspace-symbol)
-(setq lsp-headerline-breadcrumb-enable nil)
+;; (use-package lsp-mode
+;;   :ensure t
+;;   :hook ((c++-mode . lsp-deferred)
+;; 		 (c-mode . lsp-deferred))
+;;   :commands (lsp lsp-deferred))
+;; (use-package lsp-ui :commands lsp-ui-mode)
+;; (use-package lsp-treemacs :commands lsp-treemacs-errors-list)
+;; (use-package lsp-ivy :commands lsp-ivy-workspace-symbol)
+;; (setq lsp-headerline-breadcrumb-enable nil)
 
 
 ;; Random emacs generated junk
@@ -157,14 +147,15 @@
      default))
  '(org-export-backends '(ascii html icalendar latex md odt))
  '(package-selected-packages
-   '(lsp-latex lsp-ui dap-mode lsp-ivy lsp-mode cmake-mode opencl-mode
-               cuda-mode yaml-mode format-all markdown-preview-mode
-               markdown-mode magit mustache-mode slime clang-format
-               lua-mode haskell-mode nand2tetris-assembler yasnippet
-               nand2tetris enh-ruby-mode neotree web-mode
-               company-irony irony dash-at-point websocket
-               uncrustify-mode rust-mode powerline latex-preview-pane
-               git fireplace auctex-latexmk))
+   '(grip-mode gmsh-mode glsl-mode tikz lsp-latex lsp-ui dap-mode lsp-ivy
+               lsp-mode cmake-mode opencl-mode cuda-mode yaml-mode
+               format-all markdown-preview-mode markdown-mode magit
+               mustache-mode slime clang-format lua-mode haskell-mode
+               nand2tetris-assembler yasnippet nand2tetris
+               enh-ruby-mode neotree web-mode company-irony irony
+               dash-at-point websocket uncrustify-mode rust-mode
+               powerline latex-preview-pane git fireplace
+               auctex-latexmk))
  '(safe-local-variable-values
    '((c-offsets-alist (inexpr-class . +) (inexpr-statement . +)
                       (lambda-intro-cont . +)
